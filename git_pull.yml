@@ -1,0 +1,19 @@
+- name: git_pull
+  become: true
+  gather_facts: No
+  hosts: localhost
+
+  tasks:
+    - name: сreate_directory_html
+      file:
+        path: /var/www/html
+        mode: 0755
+        owner: root
+        group: root
+        state: directory
+
+    - name: copy_file_to_remote_host
+      git:
+        repo: https://github.com/mbaran0v/python-sample-app.git
+        dest: /var/www/html
+        force: yes

@@ -1,0 +1,43 @@
+- name: postgresql
+  become: true
+  gather_facts: No
+  hosts: localhost
+
+  tasks:
+    - name: install_postgres
+      apt:
+        name: postgresql
+        state: latest
+
+    - name: create_new_database
+      become: true
+      become_user: postgres
+      postgresql_db:
+        name: app
+      postgresql_table:
+        name: user
+        columns:
+          - id bigserial primary key
+          - username text
+          - email text
+          - password text
+    
+    - name: create_postgres_user_app
+      become: yes
+      become_user: postgres
+      postgresql_user:
+        name: "worker"
+        password: "worker"
+        encrypted: yes
+
+    - name: user_roles
+      become: yes
+      become_user: postgres
+      postgresql_privs:
+        db: app
+        role: worker
+        objs: ALL_IN_SCHEMA
+        privs: SELECT,INSERT,UPDATE,DELETE
+
+    
+
