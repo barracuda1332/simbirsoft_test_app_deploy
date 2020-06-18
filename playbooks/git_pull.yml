@@ -1,7 +1,7 @@
 - name: git_pull
   become: true
   gather_facts: No
-  hosts: localhost
+  hosts: test_app
 
   tasks:
     - name: сreate_directory_html

@@ -1,7 +1,7 @@
 - name: app_service
   become: true
   gather_facts: No
-  hosts: localhost
+  hosts: test_app
 
   tasks:
     - name: add_config_app

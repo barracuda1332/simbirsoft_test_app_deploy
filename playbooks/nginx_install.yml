@@ -1,7 +1,7 @@
 - name: nginx_install
   become: true
   gather_facts: No
-  hosts: localhost
+  hosts: test_app
 
   tasks:
     - name: install_nginx

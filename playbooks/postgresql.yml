@@ -1,26 +1,14 @@
 - name: postgresql
   become: true
   gather_facts: No
-  hosts: localhost
+  hosts: test_app
 
   tasks:
-    - name: install_postgres
-      apt:
-        name: postgresql
-        state: latest
-
     - name: create_new_database
       become: true
       become_user: postgres
       postgresql_db:
         name: app
-      postgresql_table:
-        name: user
-        columns:
-          - id bigserial primary key
-          - username text
-          - email text
-          - password text
     
     - name: create_postgres_user_app
       become: yes
