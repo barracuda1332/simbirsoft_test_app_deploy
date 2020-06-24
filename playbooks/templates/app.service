@@ -1,0 +1,13 @@
+[Unit]
+Description=Gunicorn instance to serve app
+After=network.target
+
+[Service]
+User=barracuda1332
+Group=www-data
+WorkingDirectory=/var/www/html
+# Environment="PATH=/var/www/html/appenv/bin"
+ExecStart=/usr/local/bin/gunicorn --timeout 200 --bind 127.0.0.1:5000 app:api
+
+[Install]
+WantedBy=multi-user.target

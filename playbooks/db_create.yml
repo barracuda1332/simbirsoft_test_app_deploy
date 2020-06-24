@@ -1,0 +1,31 @@
+- name: db_create
+  become: true
+  gather_facts: No
+  hosts: test_app
+
+  tasks:    
+    - name: create_new_database
+      become: true
+      become_user: postgres
+      postgresql_db:
+        name: app
+    
+    - name: create_postgres_user_app
+      become: yes
+      become_user: postgres
+      postgresql_user:
+        name: "worker"
+        password: "worker"
+        encrypted: yes
+
+    - name: user_roles
+      become: yes
+      become_user: postgres
+      postgresql_privs:
+        db: app
+        role: worker
+        objs: ALL_IN_SCHEMA
+        privs: SELECT,INSERT,UPDATE,DELETE
+
+    
+

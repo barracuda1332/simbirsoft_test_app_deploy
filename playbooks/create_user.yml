@@ -1,0 +1,14 @@
+- name: create_user
+  become: true
+  gather_facts: No
+  hosts: test_app
+
+  tasks:
+    - name: create_user
+      command: useradd -s /bin/false -d /var/www/html barracuda1332
+
+    - name: add_chowns
+      command: chown -Rc barracuda1332:www-data /var/www/html
+
+    - name: add_permissions
+      command: chmod -R 0755 /var/www/html

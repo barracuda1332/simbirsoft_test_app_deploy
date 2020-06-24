@@ -1,0 +1,55 @@
+- name: lib_install
+  become: true
+  gather_facts: No
+  hosts: test_app
+
+  tasks:
+    - name: pip_is_installed
+      package: 
+        name: python-pip    
+    
+    - name: install_libpq-dev
+      apt:
+        name: libpq-dev
+        state: latest
+
+    - name: install_python-dev
+      apt:
+        name: python-dev
+        state: latest
+
+    - name: install_psycopg2
+      pip:
+        name: psycopg2
+
+    - name: install_python3-pip
+      apt:
+        name: python3-pip
+        state: latest
+
+    - name: install_python3-dev
+      apt:
+        name: python3-dev
+        state: latest
+
+    - name: install_build-essential
+      apt:
+        name: build-essential
+        state: latest
+
+    - name: install_libssl-dev
+      apt:
+        name: libssl-dev
+        state: latest
+
+    - name: install_libffi-dev
+      apt:
+        name: libffi-dev
+        state: latest
+
+    - name: install_python3-setuptools
+      apt:
+        name: python3-setuptools
+        state: latest
+    
+    

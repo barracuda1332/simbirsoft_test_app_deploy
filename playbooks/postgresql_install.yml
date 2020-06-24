@@ -1,0 +1,19 @@
+- name: postgresql_install
+  become: true
+  gather_facts: No
+  hosts: test_app
+
+  tasks:
+    - name: add_key
+      apt_key:
+        url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
+
+    - name: add_repo
+      script: templates/add_repo.sh
+        
+    - name: update_apt_cache
+      apt: update_cache=yes
+
+    - name: install_postgres
+      apt:
+        name: postgresql-11

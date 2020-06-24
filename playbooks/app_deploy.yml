@@ -1,0 +1,19 @@
+- name: app_deploy
+  become: true
+  gather_facts: No
+  hosts: test_app
+
+  tasks:
+    - pip:
+        name: wheel
+
+    - pip:
+        name: gunicorn
+    
+    - pip:
+        requirements: /var/www/html/requirements.txt
+
+    - name: migration_db
+      command: flask db upgrade
+      args:
+        chdir: /var/www/html

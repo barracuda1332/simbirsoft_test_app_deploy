@@ -1,0 +1,15 @@
+- name: nginx_install
+  become: true
+  gather_facts: No
+  hosts: test_app
+
+  tasks:
+    - name: install_nginx
+      apt:
+        name: nginx
+        state: latest
+    
+    - name: update_nginx_config_files
+      template:
+        src: templates/default
+        dest: "/etc/nginx/sites-available/default"
